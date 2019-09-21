@@ -5,7 +5,11 @@ import { Redirect } from "react-router-dom";
 // import { IUserModel } from '../../../../interfaces/modelInterfaces';
 import FacebookLogin from "../../FacebookLogin";
 import UserForm from "./UserForm";
+<<<<<<< HEAD
 import {SERVER, SIGNUP } from "../../const";
+=======
+import { SIGNUP } from "../../const";
+>>>>>>> 11f0b3dcc68ad24fbeb835be8a73470664eb737b
 
 interface IUserCheck {
   user: (string | null | undefined);

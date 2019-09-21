@@ -42,4 +42,4 @@ export const GET_FRONTPAGE_POSTS = SERVER + "/v1/instagram/user/frontpage";
 
 export const LOGIN = SERVER + "/v1/auth/login";
 export const SIGNUP = SERVER + "/v1/auth/signup";
-export const CURRENT_USER = SERVER + "/v1/auth/currrent/user";
+export const CURRENT_USER = SERVER + "/v1/auth/current/user";
