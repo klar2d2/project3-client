@@ -9,6 +9,7 @@
     "@types/facebook-js-sdk": "^3.3.0",
     "@types/mapbox-gl": "^0.54.3",
     "@types/react-map-gl": "^5.0.1",
+    "axios": "^0.19.0",
     "dotenv": "^8.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
