@@ -1,6 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
+<<<<<<< HEAD
 import { SERVER, GET_ONE_ARTIST_POST } from "../../const";
+=======
+import { GET_ONE_ARTIST_POST, SERVER } from "../../const";
+>>>>>>> 67faf0f1b5644447c2c541861d80550ee15e4596
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
 
