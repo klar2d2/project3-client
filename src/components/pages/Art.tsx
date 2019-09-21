@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import BASE_URL, { GET_ONE_ARTIST_POST } from "../../const";
+import { GET_ONE_ARTIST_POST, SERVER } from "../../const";
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
 
@@ -65,7 +65,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
   }
 
   handlePostFavorite(e): void {
-    axios.get(BASE_URL + "/v1/users/" + this.props.userId)
+    axios.get(SERVER + "/v1/users/" + this.props.userId)
     .then((response) => {
       if (this.state.isFavorite) {
         response.data.favoriteWorks.push(e.target.id);
