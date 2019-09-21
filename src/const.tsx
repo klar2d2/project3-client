@@ -38,7 +38,7 @@ export const GET_ALL_ARTIST_POSTS = (artistId: string): string => {
 export const GET_ONE_ARTIST_POST = (artistId: string, postId: string): string => {
   return SERVER + `/v1/instagram/user/${artistId}/${postId}`;
 };
-export const GET_FRONTPAGE_POSTS = SERVER + "/v1/instagram/user/frontpage";
+export const GET_FRONTPAGE_POSTS = SERVER + "/v1/instagram/frontpage";
 
 export const LOGIN = SERVER + "/v1/auth/login";
 export const SIGNUP = SERVER + "/v1/auth/signup";
