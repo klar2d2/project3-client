@@ -5,7 +5,7 @@ import Contact from "../Interactive/Contact";
 // import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
 
-import BASE_URL from "../../const";
+import { SERVER } from "../../const";
 import { IArtistProps, IArtistState} from "../../react-app-env";
 
 class Artist extends Component<IArtistProps, IArtistState> {
@@ -27,7 +27,7 @@ class Artist extends Component<IArtistProps, IArtistState> {
   }
 
   public componentDidMount() {
-    axios.get(BASE_URL + "/v1/users/" + this.props.id)
+    axios.get(SERVER + "/v1/users/" + this.props.id)
     .then((response) => {
       const data = response.data;
       this.setState({

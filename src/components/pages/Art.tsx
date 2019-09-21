@@ -72,7 +72,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
       } else {
         response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
       }
-      axios.put(BASE_URL + "/v1/users/" + this.props.userId, {
+      axios.put(SERVER + "/v1/users/" + this.props.userId, {
         favoriteWorks: response.data.favoriteWorks,
       })
       .then((result) => {
