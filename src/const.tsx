@@ -3,23 +3,23 @@ export const SERVER = "https://secret-dawn-38131.herokuapp.com";
 export const GET__ALL_USERS = SERVER + "/v1/users/users";
 
 export const GET_USER_FAVORITE_ARTISTS = (userId: string): string => {
- return SERVER + `/v1/users/${userId}/favortieArtists`;
+ return SERVER + `/v1/users/${userId}/favoriteArtists`;
 }
 export const ADD_USER_FAVORITE_ARTISTS = (userId: string): string => {
-  return SERVER + `/v1/users/${userId}/favortieArtists/add`;
+  return SERVER + `/v1/users/${userId}/favoriteArtists/add`;
 }
 export const DELETE_USER_FAVORITE_ARTISTS = (userId: string): string => {
-  return SERVER + `/v1/users/${userId}/favortieArtists/remove`;
+  return SERVER + `/v1/users/${userId}/favoriteArtists/remove`;
 }
 
 export const GET_USER_FAVORITE_WORKS = (userId: string): string => {
-  return SERVER + `/v1/users/${userId}/favortieWorks`;
+  return SERVER + `/v1/users/${userId}/favoriteWorks`;
 }
 export const ADD_USER_FAVORITE_WORKS = (userId: string): string => {
-  return SERVER + `/v1/users/${userId}/favortieWorks/add`;
+  return SERVER + `/v1/users/${userId}/favoriteWorks/add`;
 }
 export const DELETE_USER_FAVORITE_WORKS = (userId: string): string => {
-  return SERVER + `/v1/users/${userId}/favortieWorks/remove`;
+  return SERVER + `/v1/users/${userId}/favoriteWorks/remove`;
 }
 
 export const GET_ARTIST_PINNED = (artistId: string): string => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import BASE_URL from "../../const";
+import BASE_URL, { GET_ONE_ARTIST_POST } from "../../const";
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
 
@@ -37,7 +37,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
 
   componentDidMount() {
     console.log(this.props.userId);
-    axios.get(BASE_URL + "/v1/users" + this.props.userId)
+    axios.get(this.props.userId)
     .then((user) => {
       let isFavorite: boolean;
       if (user.data.favoriteWorks.indexOf(this.props.postId) >= 0) {
@@ -45,11 +45,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
       } else {
         isFavorite = false;
       }
-      axios.get(BASE_URL +
-        "/v1/instagram/user/" +
-        this.props.userId +
-        "/" +
-        this.props.postId)
+      axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
       .then((response) => {
         this.setState({
           artistInstagram: "",
