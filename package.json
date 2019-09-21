@@ -5,6 +5,7 @@
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.6.0",
     "@material-ui/icons": "^4.4.1",
+    "@material-ui/styles": "^4.4.1",
     "@mdi/js": "^4.4.95",
     "@types/facebook-js-sdk": "^3.3.0",
     "@types/mapbox-gl": "^0.54.3",
