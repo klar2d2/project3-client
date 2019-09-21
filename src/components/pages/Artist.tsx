@@ -4,12 +4,7 @@ import React, { Component } from "react";
 import Contact from "../Interactive/Contact";
 // import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
-
-<<<<<<< HEAD
 import {SERVER} from "../../const";
-=======
-import { SERVER } from "../../const";
->>>>>>> 11f0b3dcc68ad24fbeb835be8a73470664eb737b
 import { IArtistProps, IArtistState} from "../../react-app-env";
 
 class Artist extends Component<IArtistProps, IArtistState> {
