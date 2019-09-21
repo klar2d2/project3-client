@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import BASE_URL from "../../const";
+import { GET_ONE_ARTIST_POST } from "../../const";
 import Pin from "../Interactive/Pin";
 
 interface IPinDisplayProps {
@@ -27,11 +27,7 @@ class PinContainer extends Component<IPinDisplayProps, IPinDisplayState> {
   }
 
   public componentDidMount() {
-    axios.get(BASE_URL +
-              "/v1/isntagram/user/" +
-              this.props.userId +
-              "/" +
-              this.props.postId)
+    axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
     .then((response) => {
       const data = response.data.message;
       this.setState({

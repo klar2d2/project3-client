@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 // import { IUserModel } from '../../../../interfaces/modelInterfaces';
 import FacebookLogin from "../../FacebookLogin";
 import UserForm from "./UserForm";
-import SERVER_URL from "../../const";
+import SERVER_URL, { SIGNUP } from "../../const";
 
 interface IUserCheck {
   user: (string | null | undefined);
@@ -64,7 +64,7 @@ class Signup extends React.Component<IUserCheck, IState> {
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newUser: {} = this.state;
-    fetch(SERVER_URL+"/v1/auth/signup", {
+    fetch(SIGNUP, {
       body: JSON.stringify(newUser),
       headers: {
         "Content-Type": "application/json",

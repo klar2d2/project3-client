@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import SERVER_URL from "../../const";
+import { LOGIN } from "../../const";
 import Test from "./Test";
 // import { AppProps } from '../../react-app-env'
 
@@ -31,7 +31,7 @@ class Login extends Component <ILoginInt, {}> {
 
   submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post(`${SERVER_URL}/v1/auth/login`, this.state)
+    axios.post(LOGIN, this.state)
     .then((response) => {
       localStorage.setItem("mernToken", response.data.token);
       this.props.refreshUser();

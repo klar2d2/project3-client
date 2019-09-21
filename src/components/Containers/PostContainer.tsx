@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import BASE_URL from "../../const";
+import { GET_ALL_ARTIST_POSTS, GET_ONE_ARTIST_POST, GET_USER_FAVORITE_WORKS } from "../../const";
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
 
@@ -36,7 +36,7 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
   }
 
   public componentDidMount() {
-    axios.get(BASE_URL + "/v1/users" + this.props.userId)
+    axios.get(GET_ALL_ARTIST_POSTS(this.props.userId))
     .then((user) => {
       const isFavorite: boolean = false;
       if (user.data.favoriteWorks.indexOf(this.props.postId) >= 0) {
@@ -44,10 +44,7 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
       } else {
         this.setState({ isFavorite: false } );
       }
-      axios.get(BASE_URL +
-        "/v1/instagram/user/" +
-        this.props.userId +
-        this.props.postId)
+      axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
       .then((response) => {
       return response.data.message;
       })
@@ -58,14 +55,14 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
   }
 
   handlePostFavorite(e): void {
-    axios.get(BASE_URL + "/v1/users/" + this.props.userId)
+    axios.get(GET_USER_FAVORITE_WORKS(this.props.userId))
     .then((response) => {
       if (this.state.isFavorite) {
         response.data.favoriteWorks.push(e.target.id);
       } else {
         response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
       }
-      axios.put(BASE_URL + "/v1/users/" + this.props.userId, {
+      axios.put(GET_USER_FAVORITE_WORKS(this.props.userId), {
         favoriteWorks: response.data.favoriteWorks,
       })
       .then((result) => {
