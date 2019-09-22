@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 // import { IUserModel } from '../../../../interfaces/modelInterfaces';
 import FacebookLogin from "../../FacebookLogin";
 import UserForm from "./UserForm";
-import { SIGNUP } from "../../const";
+import { SERVER, SIGNUP } from "../../const";
 import { Checkbox } from "@material-ui/core";
 import Vendors from "./Vendors";
 
@@ -147,7 +147,9 @@ class Signup extends React.Component<IUserCheck, IState> {
         vendorFields = (
           <div>
             <Vendors handleChange={this.handleChange}/>
-            <FacebookLogin checkFacebookLogin={this.checkFacebookLogin} isAuthenticated={this.state.isAuthenticated}/>
+            <div className="fb-login>
+              <FacebookLogin checkFacebookLogin={this.checkFacebookLogin} isAuthenticated={this.state.isAuthenticated}/>
+            </div>
           </div>
         );
         button = (
@@ -157,7 +159,9 @@ class Signup extends React.Component<IUserCheck, IState> {
         vendorFields = (
           <div> 
             <Vendors handleChange={this.handleChange}/>
-            <FacebookLogin checkFacebookLogin={this.checkFacebookLogin} isAuthenticated={this.state.isAuthenticated}/>
+            <div className="fb-login>
+              <FacebookLogin checkFacebookLogin={this.checkFacebookLogin} isAuthenticated={this.state.isAuthenticated}/>
+            </div>
           </div>
         );
         button = (

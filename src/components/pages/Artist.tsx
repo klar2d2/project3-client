@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import Contact from "../Interactive/Contact";
 // import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
-
+import {SERVER} from "../../const";
 import { GET_USER } from "../../const";
 import { IArtistProps, IArtistState} from "../../react-app-env";
 

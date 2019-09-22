@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { GET_ONE_ARTIST_POST, SERVER } from "../../const";
+import { SERVER, GET_ONE_ARTIST_POST } from "../../const";
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
 

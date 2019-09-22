@@ -1,7 +1,6 @@
 
 
 body {
-  margin-top: 50px;
   text-align: center;
   font-family: 'Raleway', sans-serif;
   z-index: -1;
@@ -9,6 +8,11 @@ body {
   background-attachment: fixed;
   width: 100%;
   justify-content: center;
+}
+
+main {
+  margin-top: 50px;
+  min-height: 80vh;
 }
 
 #browseContainer {
@@ -56,6 +60,7 @@ a :hover {
 }
 
 .footer{
+
   padding: 20px;
   background-color: #BB9B8B;
 }
@@ -64,11 +69,6 @@ a :hover {
   color: #727C82;
 }
 
-.login {
-  justify-content: center;
-  margin-top: 100px;
-  border: 2px solid black;
-}
 
 .formTemp {
   display: inline-block;
@@ -79,6 +79,10 @@ a :hover {
   border-radius: 2px;
 }
 
+.fb-login {
+  margin-bottom: 20px;
+}
+
 label {
   color: #181617;
 }
@@ -87,16 +91,15 @@ label {
   display: inline-block;
   text-align: center;
   justify-content: center;
-  margin-top: 100px;
-  min-height: 85vh;
+  min-height: 80vh;
 }
 
 .callToAction {
+  justify-content: center;
+  display: inline-block;
   text-align: center;
   width: 80%;
-  margin-left: 10%;
-  margin-top: 200px;
-  height: 60vh;
+  margin-top: 100px;
 }
 
 h1 {
@@ -118,8 +121,9 @@ h1 {
   background-color: #9C0A02;
 }
 
+
 .profile-box {
-  margin: 20px;
+  margin: 80px 20px 20px 20px;
 }
 .ArtistCheck, .ArtistCheck :after {
   font-size: 40px;

@@ -4,7 +4,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import "./App.css";
 
 // import Header from './navigation/Header'
-import { GET_FRONTPAGE_POSTS, CURRENT_USER } from "./const";
+import { GET_FRONTPAGE_POSTS, CURRENT_USER, GET_ONE_ARTIST_POST} from "./const";
 import Content from "./Content";
 import Footer from "./navigation/Footer";
 import Nav from "./navigation/Nav";
@@ -88,8 +88,9 @@ class App extends Component<AppProps, IAppState> {
     const token = localStorage.getItem("mernToken");
     // If theres a token, try to use it ot get the user info
     if (token) {
-      axios.get(CURRENT_USER, {
-        headers: { 'Authorization': `Bearer ${token}` },
+      console.log(token)
+      axios.post(CURRENT_USER, {
+        headers: {Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         this.setState({ user: response.data.user });
@@ -147,14 +148,17 @@ class App extends Component<AppProps, IAppState> {
     return (
       <Router>
         <div className="App">
-            <Nav user={this.state.user} handleLogout={this.logoutUser}/>
-            <Content
-            user={this.state.user}
-            refreshArtworks={this.getArtworks}
-            refreshUser={this.getUser}
-            artworks={this.state.artworks}
-            />
-            <Footer />
+            <main>
+              <Nav user={this.state.user} handleLogout={this.logoutUser}/>
+              <Content
+              user={this.state.user}
+              refreshArtworks={this.getArtworks}
+              refreshUser={this.getUser}
+              artworks={this.state.artworks}
+              current={this.state.current}
+              />
+            </main>
+          <Footer />
         </div>
       </Router>
     );
