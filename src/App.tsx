@@ -40,11 +40,12 @@ class App extends Component<AppProps, IAppState> {
     const token = localStorage.getItem("mernToken");
     // If theres a token, try to use it ot get the user info
     if (token) {
+      console.log(token)
       axios.post(CURRENT_USER, {
         headers: {Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log("app resp", response)
+        console.log("app resp ", response) 
         this.setState({ user: response.data.user });
         this.setState({ current: response.data.user });
       })
