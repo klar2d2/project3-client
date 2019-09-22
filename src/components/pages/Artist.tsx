@@ -5,7 +5,7 @@ import Contact from "../Interactive/Contact";
 // import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
 
-import { SERVER } from "../../const";
+import { GET_USER } from "../../const";
 import { IArtistProps, IArtistState} from "../../react-app-env";
 
 class Artist extends Component<IArtistProps, IArtistState> {
@@ -27,7 +27,8 @@ class Artist extends Component<IArtistProps, IArtistState> {
   }
 
   public componentDidMount() {
-    axios.get(SERVER + "/v1/users/" + this.props.id)
+    const token = localStorage.getItem("mernToken");
+    axios.get(GET_USER(this.props.id))
     .then((response) => {
       const data = response.data;
       this.setState({
