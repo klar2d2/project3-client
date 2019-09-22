@@ -12,17 +12,65 @@ import Nav from "./navigation/Nav";
 import { AppProps } from "./react-app-env";
 
 interface IAppState {
-  user: any;
+  user: {
+    email: string;
+    firstname: string;
+    isVendor: string;
+    lastname: string;
+    password: string;
+    vendor: {
+      address: {
+        city: string;
+        country: string;
+        state: string;
+        street: string;
+        streetNumber: string;
+        streetSuffix: string;
+        zipcode: string;
+      };
+      businessName: string;
+      instagramAccessToken: string;
+      instagramIdPage: string;
+      phoneNumber: string;
+      pinned: [];
+      website: string;
+    };
+  };
   artworks: any[];
   current: {};
 }
 
 class App extends Component<AppProps, IAppState> {
-
-  state = {
-    user: null,
-    artworks: [],
-    current: {}
+  constructor(props){
+    super(props);
+    this.state = {
+      user: {
+        email: "",
+        firstname: "",
+        isVendor: "",
+        lastname: "",
+        password: "",
+        vendor: {
+          address: {
+            city: "",
+            country: "",
+            state: "",
+            street: "",
+            streetNumber: "",
+            streetSuffix: "",
+            zipcode: "",
+          },
+          businessName: "",
+          instagramAccessToken: "",
+          instagramIdPage: "",
+          phoneNumber: "",
+          pinned: [],
+          website: "",
+        },
+      },
+      artworks: [],
+      current: {}
+    }
   }
 
   componentDidMount() {
@@ -44,7 +92,6 @@ class App extends Component<AppProps, IAppState> {
         headers: { 'Authorization': `Bearer ${token}` },
       })
       .then((response) => {
-        console.log(response.data.user)
         this.setState({ user: response.data.user });
         this.setState({ current: response.data.user });
       })
@@ -52,7 +99,32 @@ class App extends Component<AppProps, IAppState> {
         console.log("Error with token", err);
       });
     } else {
-      this.setState({ user: null });
+      this.setState({       
+        user: {
+          email: "",
+          firstname: "",
+          isVendor: "",
+          lastname: "",
+          password: "",
+          vendor: {
+            address: {
+              city: "",
+              country: "",
+              state: "",
+              street: "",
+              streetNumber: "",
+              streetSuffix: "",
+              zipcode: "",
+            },
+            businessName: "",
+            instagramAccessToken: "",
+            instagramIdPage: "",
+            phoneNumber: "",
+            pinned: [],
+            website: "",
+          },
+        } 
+      });
     }
   }
 
@@ -71,6 +143,7 @@ class App extends Component<AppProps, IAppState> {
   }
 
   render() {
+    console.log(this.state.user)
     return (
       <Router>
         <div className="App">
@@ -80,7 +153,6 @@ class App extends Component<AppProps, IAppState> {
             refreshArtworks={this.getArtworks}
             refreshUser={this.getUser}
             artworks={this.state.artworks}
-            current={this.state.current}
             />
             <Footer />
         </div>

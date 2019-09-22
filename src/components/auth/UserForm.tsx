@@ -54,7 +54,7 @@ const UserForm = (props) => {
       <br />
       <TextField
         id="email"
-        label="email"
+        label="Email"
         className={styles.textField}
         type="email"
         name="email"
