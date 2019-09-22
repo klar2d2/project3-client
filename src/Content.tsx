@@ -34,7 +34,7 @@ class Content extends Component<ContentInt> {
            <Browse refreshArtworks={this.props.refreshArtworks}
                    artworks={this.props.artworks || []} />
           } />
-        <Route exact path="/browse/:artistId/:postId" render={ (path) =>
+        <Route exact path="/art/:artistId/:postId" render={ (path) =>
           <Art userId={path.match.params.artistId}
                postId={path.match.params.postId} />
         } />
