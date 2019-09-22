@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 
 interface IFacebookLoginProps {
+  isAuthenticated: boolean;
   checkFacebookLogin();
 }
 
@@ -13,10 +14,32 @@ class FacebookLogin extends React.Component<IFacebookLoginProps, {}> {
 
   }
 
+  componentDidUpdate(prevProps){
+    console.log(prevProps.isAuthenticated)
+    console.log(this.props.isAuthenticated)
+  }
+
   render() {
-    return(
-        <Button onClick={this.handleClick} variant="contained" color="primary" >Link Instagram</Button>
-    );
+    let button;
+    console.log(this.props.isAuthenticated)
+    if (this.props.isAuthenticated){
+      button = (
+        <Button variant="contained" 
+                color="secondary"
+                disabled >
+                Thank you!
+        </Button>
+      );
+    } else {
+      button = (
+        <Button variant="contained" 
+                color="primary"
+                onClick={this.handleClick}>
+                Facebook
+        </Button>
+      );
+    }
+    return(button);
   }
 }
 

@@ -14,8 +14,41 @@ import Profile from "./components/pages/Profile";
 
 import { ContentInt } from "./react-app-env";
 
-class Content extends Component<ContentInt> {
+interface IContentProps {
+  user: {
+    email: string;
+    firstname: string;
+    isVendor: string;
+    lastname: string;
+    password: string;
+    vendor: {
+      address: {
+        city: string;
+        country: string;
+        state: string;
+        street: string;
+        streetNumber: string;
+        streetSuffix: string;
+        zipcode: string;
+      };
+      businessName: string;
+      instagramAccessToken: string;
+      instagramIdPage: string;
+      phoneNumber: string;
+      pinned: [];
+      website: string;
+    };
+  };
+  refreshArtworks();
+    
+}
+
+class Content extends Component<IContentProps> {
+  constructor(props){
+    super(props);
+  }
   render() {
+    console.log(this.props)
     return (
       <div>
         <Route exact path="/" render={ () =>
@@ -26,7 +59,7 @@ class Content extends Component<ContentInt> {
                    refreshUser={this.props.refreshUser} />
         } />
         <Route path="/profile" render={() =>
-          <Profile current={this.props.current}
+          <Profile user={this.props.user}
                    refreshUser={this.props.refreshUser}
                    refreshArtworks={this.props.refreshArtworks}  />
         } />
