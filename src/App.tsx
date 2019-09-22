@@ -45,7 +45,7 @@ class App extends Component<AppProps, IAppState> {
         headers: {Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log("app resp ", response) 
+        console.log("app resp ", response)
         this.setState({ user: response.data.user });
         this.setState({ current: response.data.user });
       })

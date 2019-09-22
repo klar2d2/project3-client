@@ -24,13 +24,13 @@ interface IBrowseProps {
 
 const Browse = (props: IBrowseProps) => {
   const classes = useStyles();
-
+  console.log(props.artworks)
   return (
     <div className={classes.root} id="browseContainer">
       <GridList cellHeight={160} cols={3}>
       {props.artworks.map((work, i) => (
-            <GridListTile key={i} cols={1} className="tile">
-              <img src={work} alt={work} />
+            <GridListTile key={work.id} cols={1} className="tile">
+              <img src={work.media_url} alt={work.id} />
             </GridListTile>
           ))}
       </GridList>

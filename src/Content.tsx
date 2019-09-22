@@ -22,7 +22,8 @@ class Content extends Component<ContentInt> {
           <CallToAction />
         } />
         <Route path="/signup" render={ () =>
-          <AuthBox user={this.props.user} refreshUser={this.props.refreshUser} />
+          <AuthBox user={this.props.user} 
+                   refreshUser={this.props.refreshUser} />
         } />
         <Route path="/profile" render={() =>
           <Profile current={this.props.current}
@@ -35,13 +36,16 @@ class Content extends Component<ContentInt> {
           } />
         <Route exact path="/browse/:artistId/:postId" render={ (path) =>
           <Art userId={path.match.params.artistId}
-                         postId={path.match.params.postId} />
+               postId={path.match.params.postId} />
         } />
-        <Route path="/browse/:artistId" render={ (path) =>
-          <Artist id={path.match.params.artistId} user={this.props.user} refreshUser={this.props.refreshUser}/>
+        <Route path="/artist/:artistId" render={ (path) =>
+          <Artist id={path.match.params.artistId} 
+                  user={this.props.user} 
+                  refreshUser={this.props.refreshUser}/>
         } />
         <Route path="/login" render={ () =>
-          <Login refreshUser={this.props.refreshUser} user={this.props.user} />
+          <Login refreshUser={this.props.refreshUser} 
+                 user={this.props.user} />
         } />
       </div>
     );

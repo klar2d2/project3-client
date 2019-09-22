@@ -2,6 +2,10 @@ export const SERVER = "https://secret-dawn-38131.herokuapp.com";
 
 export const GET__ALL_USERS = SERVER + "/v1/users/users";
 
+export const GET_USER = (artistId: string): string => { 
+  return SERVER + `/v1/users/${artistId}`;
+}
+
 export const GET_USER_FAVORITE_ARTISTS = (userId: string): string => {
  return SERVER + `/v1/users/${userId}/favoriteArtists`;
 }
@@ -38,7 +42,7 @@ export const GET_ALL_ARTIST_POSTS = (artistId: string): string => {
 export const GET_ONE_ARTIST_POST = (artistId: string, postId: string): string => {
   return SERVER + `/v1/instagram/user/${artistId}/${postId}`;
 };
-export const GET_FRONTPAGE_POSTS = SERVER + "/v1/instagram/user/frontpage";
+export const GET_FRONTPAGE_POSTS = SERVER + "/v1/instagram/frontpage";
 
 export const LOGIN = SERVER + "/v1/auth/login";
 export const SIGNUP = SERVER + "/v1/auth/signup";
