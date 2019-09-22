@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 interface IFacebookLoginProps {
   checkFacebookLogin();
@@ -14,7 +15,7 @@ class FacebookLogin extends React.Component<IFacebookLoginProps, {}> {
 
   render() {
     return(
-        <button onClick={this.handleClick}>Facebook</button>
+        <Button onClick={this.handleClick} variant="contained" color="primary" >Link Instagram</Button>
     );
   }
 }

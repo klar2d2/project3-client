@@ -106,7 +106,7 @@ class Signup extends React.Component<IUserCheck, IState> {
     }
     if (this.state.isVendor) {
       vendorFields = (
-        <div>
+        <div className="fb-login">
           <FacebookLogin checkFacebookLogin={this.checkFacebookLogin}/>
         </div>
       );
