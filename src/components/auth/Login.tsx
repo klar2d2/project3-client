@@ -4,30 +4,23 @@ import { LOGIN } from "../../const";
 import Test from "./Test";
 // import { AppProps } from '../../react-app-env'
 
-export interface ILoginInt {
-  user?: ({} | null);
-  email?: string;
-  password?: string;
+interface ILoginProps {
   refreshUser();
 }
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
-
-export interface IFormState {
-  user?: (string | null);
+export interface ILoginState {
   email: string;
   password: string;
-  firstname?: string;
-  lastname?: string;
 }
 
-class Login extends Component <ILoginInt, {}> {
-
-  state: IFormState = {
-    email: "",
-    password: "",
-    user: null,
-  };
+class Login extends Component <ILoginProps, ILoginState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
 
   submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,16 +38,16 @@ class Login extends Component <ILoginInt, {}> {
     });
   }
 
-  handleChange = (e: ChangeEvent) => {
-    this.setState({ [e.target.name]: e.target.value});
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const state = this.state;
+    state[e.currentTarget.name] = e.currentTarget.value;
+    this.setState(state);
   }
 
   render() {
     return(
       <div>
-        <Test refreshUser={this.props.refreshUser}
-              user={this.props.user}
-              handleChange={this.handleChange}
+        <Test handleChange={this.handleChange}
               submitLogin={this.submitLogin}
         />
       </div>

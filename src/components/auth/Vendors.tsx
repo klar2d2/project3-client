@@ -3,6 +3,10 @@ import TextField from "@material-ui/core/TextField";
 import React from "react";
 import FacebookLogin from "../../FacebookLogin";
 
+interface IVendorsProps {
+  handleChange(name: React.ChangeEvent);
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -23,127 +27,110 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Vendors = (props) => {
-  console.log('props.newVendor', props.newVendor);
+const Vendors = (props: IVendorsProps) => {
   const styles: any = useStyles();
   return(
     <div className="vendorContainer">
-      <form>
-        <FacebookLogin checkFacebookLogin={props.checkFacebookLogin}/>
-        <br />
         <TextField
-          id="filled-text-input"
+          id="street-number"
           label="Street Number"
           className={styles.textField}
           type="text"
           name="vendoraddressstreetNumber"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.streetNumber}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="street-name"
           label="Street Name"
           className={styles.textField}
           type="text"
           name="vendoraddressstreetName"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.streetName}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="street-suffix"
           label="Street Suffix"
           className={styles.textField}
           type="text"
           name="vendoraddressstreetSuffix"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.streetSuffix}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="city"
           label="City"
           className={styles.textField}
           type="text"
           name="vendoraddresscity"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.city}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="state"
           label="State"
           className={styles.textField}
           type="text"
           name="vendoraddressstate"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.state}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="country"
           label="Country"
           className={styles.textField}
           type="text"
           name="vendoraddresscountry"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.country}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="zipcode"
           label="Zip Code"
           className={styles.textField}
           type="text"
           name="vendoraddresszipcode"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.address.zipcode}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="phone-number"
           label="Phone Number"
           className={styles.textField}
           type="text"
           name="vendorphoneNumber"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.phoneNumber}
+          onChange={props.handleChange}
         />
         <br />
         <TextField
-          id="filled-text-input"
+          id="website"
           label="Website"
           className={styles.textField}
           type="text"
           name="vendoraddresswebsite"
           autoComplete="text"
           margin="normal"
-          onChange={props.recordVendor}
-          value={props.newVendor.websiter}
+          onChange={props.handleChange}
         />
         <br />
-        <div className="subButton">
-
-        </div>
         <br />
-      </form>
     </div>
   );
 };

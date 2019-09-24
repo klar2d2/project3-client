@@ -66,6 +66,7 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
         favoriteWorks: response.data.favoriteWorks,
       })
       .then((result) => {
+        console.log(result);
       })
       .catch((err) => {
         console.log("ERROR updating favorites", err);

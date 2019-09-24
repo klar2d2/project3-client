@@ -5,7 +5,7 @@ import Pin from "../Interactive/Pin";
 
 interface IPinDisplayProps {
   postId: string;
-  userId: string;
+  artistId: string;
 }
 
 interface IPinDisplayState {
@@ -27,13 +27,13 @@ class PinContainer extends Component<IPinDisplayProps, IPinDisplayState> {
   }
 
   public componentDidMount() {
-    axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
+    axios.get(GET_ONE_ARTIST_POST(this.props.artistId, this.props.postId))
     .then((response) => {
       const data = response.data.message;
       this.setState({
         id: data.id,
-        mediaType: data.mediaType,
-        mediaUrl: data.mediaUrl,
+        mediaType: data.media_type,
+        mediaUrl: data.media_url,
         timestamp: data.timestamp,
       });
     });
@@ -44,6 +44,7 @@ class PinContainer extends Component<IPinDisplayProps, IPinDisplayState> {
       <Pin id={this.state.id}
            mediaType={this.state.mediaType}
            mediaUrl={this.state.mediaUrl}
+           timestamp={this.state.timestamp}
       />
     );
   }

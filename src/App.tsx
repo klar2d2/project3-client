@@ -1,38 +1,118 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import React, { Component } from "react";
-import {BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
 // import Header from './navigation/Header'
-import { GET_FRONTPAGE_POSTS, CURRENT_USER, GET_ONE_ARTIST_POST} from "./const";
+import { CURRENT_USER } from "./const";
 import Content from "./Content";
 import Footer from "./navigation/Footer";
 import Nav from "./navigation/Nav";
 
-import { AppProps } from "./react-app-env";
+import { IAddress, IUser, IVendor } from "./react-app-env";
 
 interface IAppState {
-  user: any;
-  artworks: any[];
-  current: {};
+  user: IUser;
+  userAddress?: IAddress;
+  vendorInfo?: IVendor;
 }
 
-class App extends Component<AppProps, IAppState> {
-
-  state = {
-    user: null,
-    artworks: [],
-    current: {}
+class App extends Component<{}, IAppState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        email: "",
+        firstname: "",
+        id: "",
+        isLoggedIn: false,
+        isVendor: false,
+        lastname: "",
+        password: "",
+        favoriteWorks: [{postId: '', artistId: '' }],
+        favoriteArtists: []
+      },
+      userAddress: {
+        city: "",
+        country: "",
+        state: "",
+        street: "",
+        streetNumber: "",
+        streetSuffix: "",
+        zipcode: "",
+      },
+      vendorInfo: {
+        businessName: "",
+        instagramAccessToken: "",
+        instagramIdPage: "",
+        phoneNumber: "",
+        pinned: [],
+        website: "",
+      },
+    };
   }
 
   componentDidMount() {
     this.getUser();
-    this.getArtworks();
   }
 
-  logoutUser = (e: any) => {
+  logoutUser = (e) => {
     e.preventDefault();
     localStorage.removeItem("mernToken");
+    this.getUser();
+  }
+
+  makeUserStateObject = (response: AxiosResponse | undefined) => {
+    if (response) {
+      const state: IAppState = {
+        user: {
+          email: response.data.user.email,
+          firstname: response.data.user.firstname,
+          id: response.data.user.id,
+          isLoggedIn: true,
+          isVendor: response.data.user.isVendor,
+          lastname: response.data.userlastname,
+          password: response.data.user.password,
+          favoriteWorks: [{postId: response.data.user.favoriteWorks, artistId: response.data.user.favoriteArtists }],
+          favoriteArtists: []
+        },
+      };
+      if (response.data.user.isVendor) {
+        state.userAddress = {
+          city: response.data.vendor.city,
+          country: response.data.vendor.country,
+          state: response.data.vendor.state,
+          street: response.data.vendor.street,
+          streetNumber: response.data.vendor.streetNumber,
+          streetSuffix: response.data.vendor.streetSuffix,
+          zipcode: response.data.vendor.zipcode,
+        };
+        state.vendorInfo = {
+          businessName: response.data.vendor.businessName,
+          instagramAccessToken: response.data.vendor.instagramAccessToken,
+          instagramIdPage: response.data.vendor.insta,
+          phoneNumber: response.data.vendor.phoneNumber,
+          pinned: response.data.vendor.pinned,
+          website: response.data.vendor.website,
+        };
+      }
+      return state;
+    } else {
+      const state: IAppState = {
+        user: {
+          email: "",
+          firstname: "",
+          id: "",
+          isLoggedIn: false,
+          isVendor: false,
+          lastname: "",
+          password: "",
+          favoriteWorks: [{postId: '', artistId: '' }],
+          favoriteArtists: []
+        },
+      };
+      return state;
+    }
   }
 
   getUser = () => {
@@ -40,51 +120,26 @@ class App extends Component<AppProps, IAppState> {
     const token = localStorage.getItem("mernToken");
     // If theres a token, try to use it ot get the user info
     if (token) {
-      console.log(token)
-      axios.post(CURRENT_USER, {
-        headers: {Authorization: `Bearer ${token}` },
+      axios.get(CURRENT_USER, {
+        headers: { "Authorization": `Bearer ${token}` },
       })
-      .then((response) => {
-        console.log("app resp ", response)
-        this.setState({ user: response.data.user });
-        this.setState({ current: response.data.user });
-      })
-      .catch( (err) => {
-        console.log("Error with token", err);
-      });
+        .then((response) => {
+          this.setState(this.makeUserStateObject(response));
+        })
+        .catch((err) => {
+          console.log("Error with token", err);
+        });
     } else {
-      this.setState({ user: null });
+      this.setState(this.makeUserStateObject(undefined));
     }
-  }
-
-  getArtworks = () => {
-    axios.get(GET_FRONTPAGE_POSTS)
-    .then(artworks => {
-      console.log(artworks)
-      this.setState({ artworks: artworks.data.message })
-    })
-    .catch(err => {
-      console.log('Err while grabbing artworks', err)
-    })
-    .catch( (err) => {
-      console.log("Err while grabbing artworks", err);
-    });
   }
 
   render() {
     return (
       <Router>
         <div className="App">
-            <main>
-              <Nav user={this.state.user} handleLogout={this.logoutUser}/>
-              <Content
-              user={this.state.user}
-              refreshArtworks={this.getArtworks}
-              refreshUser={this.getUser}
-              artworks={this.state.artworks}
-              current={this.state.current}
-              />
-            </main>
+          <Nav user={this.state.user} logoutUser={this.logoutUser} />
+          <Content user={this.state.user} refreshUser={this.getUser} />
           <Footer />
         </div>
       </Router>

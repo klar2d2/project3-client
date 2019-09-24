@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { IUser } from "../react-app-env";
 
-const logoutUser = (e) => {
-  console.log("Token removed");
-  localStorage.removeItem("mernToken");
-};
+interface INavProps {
+  user: IUser;
+  logoutUser(e);
+}
 
-const Nav = (props) => {
+const Nav = (props: INavProps) => {
   let links;
-
   if (props.user) {
+    if (props.user.isLoggedIn) {
+      links = (
+        <span>
+          <Link to="/profile">Profile</Link>
+          <a href="/" onClick={props.logoutUser}>Logout</a>
+        </span>
+      );
+    } else {
     links = (
-      <span>
-        <Link to="/profile">Profile</Link>
-        <a href="/" onClick={logoutUser}>Logout</a>
-      </span>
+      <Link to="/signup">Sign Up  |  Login</Link>
     );
-  } else {
-   links = (
-     <Link to="/signup">Sign Up  |  Login</Link>
-   );
+    }
   }
 
   return (

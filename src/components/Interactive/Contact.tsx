@@ -1,15 +1,23 @@
 import React from "react";
+import { IAddress, IUser, IVendor } from "../../react-app-env";
 
-const Contact = (props) => {
-  return(
+interface IContactProps {
+  artist: IUser;
+  artistInfo: IVendor;
+  artistAddress: IAddress;
+}
+
+const Contact = (props: IContactProps) => {
+  const contact = (
     <div>
-      <span>{props.contactInfo.email || "Unavailble"}</span>
-      <span>{props.contactInfo.instagramIdPage || "Unavailble"}</span>
-      <span>{props.contactInfo.name || "Unavailble"}</span>
-      <span>{props.contactInfo.phoneNumber || "Unavailble"}</span>
-      <span>{props.contactInfo.website || "Unavailble"}</span>
+      <span>{props.artist.email || "Unavailble"}</span>
+      <span>{props.artistInfo.instagramIdPage || "Unavailble"}</span>
+      <span>{props.artistInfo.businessName || "Unavailble"}</span>
+      <span>{props.artistInfo.phoneNumber || "Unavailble"}</span>
+      <span>{props.artistInfo.website || "Unavailble"}</span>
     </div>
   );
+  return (contact);
 };
 
 export default Contact;
