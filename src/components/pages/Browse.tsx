@@ -1,9 +1,10 @@
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import React from "react";
 import {GET_ONE_ARTIST_POST} from '../../const'
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,8 +26,8 @@ interface IBrowseProps {
 }
 
 const getOneArtwork = (userId, postId) => {
-  console.log('click')
-  return <Redirect to={GET_ONE_ARTIST_POST(userId, postId)} />
+  console.log('click', userId, postId)
+  return
 }
 
 const Browse = (props: IBrowseProps) => {
@@ -34,10 +35,18 @@ const Browse = (props: IBrowseProps) => {
   console.log(props.artworks)
   return (
     <div className={classes.root} id="browseContainer">
-      <GridList cellHeight={160} cols={3}>
-      {props.artworks.map((work, i) => (
+      <GridList cellHeight={400} cols={3}>
+      {props.artworks.map((work) => (
             <GridListTile key={work.id} cols={1} className="tile">
-              <img src={work.media_url} alt={work.id} onClick={(e) => {getOneArtwork(work.userId, work.id)}} />
+              <Link to={{
+                pathname: `art/${work.artistId}/${work.id}`,
+                state: {
+                  artistId: work.artistId,
+                  artId: work.id
+                }
+              }}>
+                <img className='img-tile' src={work.media_url} alt={work.id} />
+                </Link>
             </GridListTile>
           ))}
       </GridList>
