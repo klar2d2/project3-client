@@ -3,6 +3,10 @@ import TextField from "@material-ui/core/TextField";
 import React from "react";
 import FacebookLogin from "../../FacebookLogin";
 
+interface IVendorsProps {
+  handleChange(name: React.ChangeEvent);
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Vendors = (props) => {
+const Vendors = (props: IVendorsProps) => {
   const styles: any = useStyles();
   return(
     <div className="vendorContainer">

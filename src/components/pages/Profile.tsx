@@ -1,34 +1,14 @@
 import { Grid, Paper } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { Component } from "react";
-import { ContentInt } from "../../react-app-env";
+import { ContentInt, IAddress, IUser, IVendor } from "../../react-app-env";
 import Favorites from "./Favorites";
 
 interface IProfileProps {
-  user: {
-    email: string;
-    firstname: string;
-    isVendor: string;
-    lastname: string;
-    password: string;
-    vendor: {
-      address: {
-        city: string;
-        country: string;
-        state: string;
-        street: string;
-        streetNumber: string;
-        streetSuffix: string;
-        zipcode: string;
-      };
-      businessName: string;
-      instagramAccessToken: string;
-      instagramIdPage: string;
-      phoneNumber: string;
-      pinned: [];
-      website: string;
-    };
-  }
+  user: IUser;
+  vendorInfo?: IVendor;
+  vendorAddress?: IAddress;
+  refreshUser();
 }
 
 class Profile extends Component<IProfileProps, {}> {
@@ -62,33 +42,48 @@ class Profile extends Component<IProfileProps, {}> {
   // }
 
   renderVendor() {
-    if (this.props.user.isVendor) {
-      let address;
-      let pinned;
-      if (this.props.user.vendor.address) {
-        address = (
+      if (this.props.user.isVendor) {
+        let address;
+        let contact;
+        let pinned;
+        if (this.props.vendorAddress) {
+          address = (
+            <div>
+              <p>Address:</p>
+              <p>
+                {this.props.vendorAddress.streetNumber}
+                {this.props.vendorAddress.street}
+                {this.props.vendorAddress.streetSuffix}
+                <br />
+                {this.props.vendorAddress.state}
+                {this.props.vendorAddress.zipcode},
+                {this.props.vendorAddress.country}
+              </p>
+            </div>
+          );
+        }
+        if (this.props.vendorInfo) {
+          contact = (
+            <div>
+              <p>{this.props.vendorInfo.phoneNumber}</p>
+              <p>{this.props.vendorInfo.website}</p>
+            </div>
+          );
+          if (this.props.vendorInfo.pinned.length > 0) {
+            pinned = (this.props.vendorInfo.pinned);
+            } else {
+              pinned = (<p>No Pinned works yet!</p>);
+            }
+        }
+        return (
           <div>
-            <p>Address:</p>
-            <p>{this.props.user.vendor.address.streetNumber} {this.props.user.vendor.address.street} {this.props.user.vendor.address.streetSuffix}<br />
-            {this.props.user.vendor.address.state} {this.props.user.vendor.address.zipcode}, {this.props.user.vendor.address.country}</p>
-            <p>{this.props.user.vendor.phoneNumber}</p>
-            <p>{this.props.user.vendor.website}</p>
+            <h2>Vendor Info</h2>
+            {address}
+            {contact}
+            {pinned}
           </div>
         );
       }
-      if (this.props.user.vendor.pinned.length > 0) {
-       pinned = (this.props.user.vendor.pinned)
-      } else{
-        pinned = (<p>No Pinned works yet!</p>)
-      }
-      return (
-        <div>
-          <h2>Vendor Info</h2>
-          {address}
-          {pinned}
-        </div>
-      )
-    }
   }
 
   render() {

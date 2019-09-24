@@ -1,5 +1,48 @@
 /// <reference types="react-scripts" />
 
+export interface IUser {
+  email: string;
+  favoriteArtists: string[];
+  favoriteWorks: [{postId: string, artistId: string}];
+  firstname: string;
+  id: string,
+  isLoggedIn?: boolean;
+  isVendor?: boolean;
+  lastname: string;
+  password: string;
+}
+
+export interface IVendor {
+  businessName: string;
+  instagramAccessToken: string;
+  instagramIdPage: string;
+  phoneNumber: string;
+  pinned: string[];
+  website: string;
+}
+
+export interface IAddress {
+  city: string;
+  country: string;
+  state: string;
+  street: string;
+  streetNumber: string;
+  streetSuffix: string;
+  zipcode: string;
+}
+
+export interface IPost {
+  id: string;
+  mediaType: string;
+  mediaUrl: string;
+  timestamp: string;
+  userId: string;
+}
+
+
+
+
+
 export interface ImageTiles {
   image: string,
   artist: string

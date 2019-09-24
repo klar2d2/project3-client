@@ -8,18 +8,19 @@ import UserForm from "./UserForm";
 import { SERVER, SIGNUP } from "../../const";
 import { Checkbox } from "@material-ui/core";
 import Vendors from "./Vendors";
+import { IUser } from "../../react-app-env";
 
-interface IUserCheck {
-  user: (string | null | undefined);
+interface ISignupProps {
+  user: IUser;
   refreshUser();
 }
 
-interface IState {
-  businessName: string,
-  city: string;
-  country: string;
-  firstname: string;
+interface ISignupState {
+  businessName?: string;
+  city?: string;
+  country?: string;
   email: string;
+  firstname: string;
   instagramAccessToken?: string;
   instagramIdPage?: string;
   isVendor: boolean;
@@ -28,15 +29,15 @@ interface IState {
   password: string;
   passwordVerify: string;
   phoneNumber?: string;
-  state: string;
-  street: string;
-  streetNumber: string;
-  streetSuffix: string;
-  zipcode: string;
+  state?: string;
+  street?: string;
+  streetNumber?: string;
+  streetSuffix?: string;
   website?: string;
+  zipcode?: string;
 }
 
-class Signup extends React.Component<IUserCheck, IState> {
+class Signup extends React.Component<ISignupProps, ISignupState> {
   constructor(props) {
     super(props);
 
@@ -44,8 +45,8 @@ class Signup extends React.Component<IUserCheck, IState> {
       businessName: "",
       city: "",
       country: "",
-      firstname: "",
       email: "",
+      firstname: "",
       instagramAccessToken: "",
       instagramIdPage: "",
       isAuthenticated: false,
@@ -58,17 +59,15 @@ class Signup extends React.Component<IUserCheck, IState> {
       street: "",
       streetNumber: "",
       streetSuffix: "",
+      website: "",
       zipcode: "",
-      website: ""
     };
   }
 
   checkFacebookLogin = () => {
     window.FB.getLoginStatus( (response) => {
       if (response.status === "connected") {
-        if(response.authResponse.accessToken){
-          console.log(response)
-          console.log(response.authResponse.accessToken)
+        if (response.authResponse.accessToken) {
           const stateCopy = JSON.parse(JSON.stringify(this.state));
           stateCopy.instagramAccessToken = response.authResponse.accessToken;
           stateCopy.isAuthenticated = true;
@@ -76,9 +75,7 @@ class Signup extends React.Component<IUserCheck, IState> {
         }
       } else {
         window.FB.login( (loginResponse) => {
-          if (loginResponse.authResponse.accessToken) { 
-            console.log(loginResponse)
-            console.log(loginResponse.authResponse.accessToken)
+          if (loginResponse.authResponse.accessToken) {
             const stateCopy = JSON.parse(JSON.stringify(this.state));
             stateCopy.instagramAccessToken = loginResponse.authResponse.accessToken;
             stateCopy.isAuthenticated = true;
@@ -98,16 +95,16 @@ class Signup extends React.Component<IUserCheck, IState> {
       },
       method: "POST",
     })
-      .then( (response) => response.json())
-      .then( (response) => {
-        localStorage.setItem("mernToken", response.token);
-        this.props.refreshUser();
-        this.render();
-      })
-      .catch( (err) => {
-        console.log(err);
-        console.log("ERROR");
-      });
+    .then( (response) => response.json())
+    .then( (response) => {
+      localStorage.setItem("mernToken", response.token);
+      this.props.refreshUser();
+      this.render();
+    })
+    .catch( (err) => {
+      console.log(err);
+      console.log("ERROR");
+    });
   }
 
   storeInput = (e) => {
@@ -116,8 +113,8 @@ class Signup extends React.Component<IUserCheck, IState> {
     this.setState(state);
   }
 
-  handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({...this.state, [name]: event.target.checked})
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({...this.state, [e.currentTarget.name]: e.currentTarget.checked});
   }
 
   // storeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -136,10 +133,9 @@ class Signup extends React.Component<IUserCheck, IState> {
   // }
 
   render() {
-    console.log(this.state);
     let vendorFields;
     let button;
-    if (this.props.user) {
+    if (this.props.user.isLoggedIn) {
       return (<Redirect to="/browse" />);
     }
     if (this.state.isVendor) {
@@ -147,7 +143,7 @@ class Signup extends React.Component<IUserCheck, IState> {
         vendorFields = (
           <div>
             <Vendors handleChange={this.handleChange}/>
-            <div className="fb-login>
+            <div className="fb-login">
               <FacebookLogin checkFacebookLogin={this.checkFacebookLogin} isAuthenticated={this.state.isAuthenticated}/>
             </div>
           </div>
@@ -157,9 +153,9 @@ class Signup extends React.Component<IUserCheck, IState> {
         );
       } else {
         vendorFields = (
-          <div> 
+          <div>
             <Vendors handleChange={this.handleChange}/>
-            <div className="fb-login>
+            <div className="fb-login">
               <FacebookLogin checkFacebookLogin={this.checkFacebookLogin} isAuthenticated={this.state.isAuthenticated}/>
             </div>
           </div>
@@ -181,12 +177,13 @@ class Signup extends React.Component<IUserCheck, IState> {
         <UserForm recordUser={this.storeInput} newUser={this.state}/>
         <br />
         <div className="isVendor">
-          <h1 className="Artist" >Are you an artist? 
+          <h1 className="Artist" >Are you an artist?
             <Checkbox checked={this.state.isVendor}
-                      onChange={this.handleChange("isVendor")}
+                      onChange={this.handleChange}
+                      name="isVendor"
                       value="checkedB"
                       color="primary"
-                      inputProps={{'aria-label': 'secondary checkbox',}}
+                      inputProps={{"aria-label": "secondary checkbox"}}
             />
           </h1>
           <br />

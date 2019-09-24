@@ -1,9 +1,16 @@
 import React from "react";
 
-const Pin = (props) => {
+interface IPinProps {
+  id: string;
+  mediaType: string;
+  mediaUrl: string;
+  timestamp: string;
+}
+
+const Pin = (props: IPinProps) => {
   let media;
   if (props.mediaType === "IMAGE") {
-    media = <img src={props.mediaUrl} alt='' />;
+    media = <img src={props.mediaUrl} alt="" />;
 
   } else if (props.mediaType === "VIDEO") {
     media = <video>

@@ -1,5 +1,6 @@
 //import { getThemeProps } from "@material-ui/styles";
 import { mdiHeart, mdiHeartOutline } from "@mdi/js";
+import { Favorite, FavoriteBorder } from "@material-ui/icons";
 //import { appendFile } from "fs";
 //import { userInfo } from "os";
 import React from "react";
@@ -23,12 +24,11 @@ const Post = (props: IPostProps) => {
               <source src={props.mediaUrl} />
             </video>;
   }
-
-  let favoriteIcon: string;
+  let favoriteIcon;
   if (props.isFavorite) {
-    favoriteIcon = mdiHeartOutline;
+    favoriteIcon = <Favorite />;
   } else {
-    favoriteIcon = mdiHeart;
+    favoriteIcon = <FavoriteBorder />;
   }
 
   return(

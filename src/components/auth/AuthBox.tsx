@@ -67,7 +67,7 @@ const AuthBox = (props) => {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <Login refreshUser={props.refreshUser} user={props.user} />
+            <Login refreshUser={props.refreshUser}/>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <Signup user={props.user} refreshUser={props.refreshUser}/>

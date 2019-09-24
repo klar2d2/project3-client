@@ -3,6 +3,11 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
 
+interface ITestProps {
+  handleChange(e: React.FormEvent);
+  submitLogin(e: React.ChangeEvent);
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
