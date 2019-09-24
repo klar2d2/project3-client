@@ -54,11 +54,13 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
   }
 
   isFavoriteWork(favoriteWorks, postId) {
-    favoriteWorks.forEach((work) => {
-      if (work.postId === postId) {
-        return true;
-      }
-    });
+    if (favoriteWorks) {
+      favoriteWorks.forEach((work) => {
+        if (work.postId === postId) {
+          return true;
+        }
+      });
+    }
     return false;
   }
 

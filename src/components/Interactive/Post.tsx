@@ -17,7 +17,7 @@ interface IPostProps {
 const Post = (props: IPostProps) => {
   let media;
   if (props.mediaType === "IMAGE") {
-    media = <img src={props.mediaUrl} alt='' />;
+    media = <img src={props.mediaUrl} alt="" />;
 
   } else if (props.mediaType === "VIDEO") {
     media = <video>
