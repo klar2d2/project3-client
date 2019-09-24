@@ -2,8 +2,8 @@
 
 export interface IUser {
   email: string;
-  favoriteArtists: string[];
-  favoriteWorks: [{postId: string, artistId: string}];
+  favoriteArtists?: string[];
+  favoriteWorks?: [{postId: string, artistId: string}];
   firstname: string;
   id: string,
   isLoggedIn?: boolean;
