@@ -73,6 +73,7 @@ class Content extends Component<IContentProps, IContentState> {
         <Route exact path="/art/:artistId/:postId" render={(path) =>
           <Art userId={path.match.params.artistId}
                user={user}
+               refreshUser={this.props.refreshUser}
                postId={path.match.params.postId} />
         } />
         <Route path="/artist/:artistId" render={(path) =>

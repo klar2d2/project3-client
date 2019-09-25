@@ -38,6 +38,7 @@ const Browse = (props) => {
   useEffect(() => {
     axios.get(GET_FRONTPAGE_POSTS)
     .then((response) => {
+        console.log(response);
         setArtworks(response.data.message);
     })
     .catch((err) => {
@@ -48,7 +49,7 @@ const Browse = (props) => {
   return (
     <div className={classes.root} id="browseContainer">
       <GridList cellHeight={160} cols={3}>
-      {artworks.map((work: IPost, i) => (
+      {artworks.map((work: IPost) => (
             <GridListTile key={work.id + "-" + work.userId} cols={1} className="tile">
               <Link to={`/art/${work.userId}/${work.id}`}>
                 <img src={work.media_url} alt={work.id}/>

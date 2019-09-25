@@ -7,6 +7,7 @@ import React from "react";
 //import App from "../../App";
 
 interface IPostProps {
+  artistId: string;
   id: string;
   isFavorite: boolean;
   mediaType: string;
@@ -25,6 +26,7 @@ const Post = (props: IPostProps) => {
             </video>;
   }
   let favoriteIcon;
+  console.log(props.isFavorite)
   if (props.isFavorite) {
     favoriteIcon = <Favorite />;
   } else {
@@ -34,7 +36,10 @@ const Post = (props: IPostProps) => {
   return(
     <div id={props.id}>
       {media}
-      <img src={favoriteIcon} onClick={props.handlePostFavorite} alt="favorite" />
+      <span id={props.artistId + "-" + props.id + "-" + String(props.isFavorite)}
+            onClick={props.handlePostFavorite}>
+            {favoriteIcon}
+      </span>
     </div>
   );
 };

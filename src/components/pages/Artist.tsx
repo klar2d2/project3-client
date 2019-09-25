@@ -53,28 +53,30 @@ class Artist extends Component<IArtistProps, IArtistState> {
     let artistInfoResponse;
     if (response) {
       artistResponse = {
-        email: response.data.user.email,
-        firstname: response.data.user.firstname,
-        id: response.data.user.id,
+        email: response.data.email || "",
+        firstname: response.data.firstname,
+        id: response.data.id,
         isLoggedIn: true,
-        isVendor: response.data.user.isVendor,
-        lastname: response.data.userlastname,
-        password: response.data.user.password,
+        isVendor: true,
+        lastname: response.data.lastname,
+        password: response.data.password,
       };
-      if (response.data.user.isVendor) {
-        artistAddressResponse = {
-          city: response.data.vendor.city,
-          country: response.data.vendor.country,
-          state: response.data.vendor.state,
-          street: response.data.vendor.street,
-          streetNumber: response.data.vendor.streetNumber,
-          streetSuffix: response.data.vendor.streetSuffix,
-          zipcode: response.data.vendor.zipcode,
-        };
+      if (response.data.vendor) {
+        if (response.data.vendor.address) {
+          artistAddressResponse = {
+            city: response.data.vendor.address.city,
+            country: response.data.vendor.address.country,
+            state: response.data.vendor.address.state,
+            street: response.data.vendor.address.street,
+            streetNumber: response.data.vendor.address.streetNumber,
+            streetSuffix: response.data.vendor.address.streetSuffix,
+            zipcode: response.data.vendor.address.zipcode,
+          };
+        }
         artistInfoResponse = {
           businessName: response.data.vendor.businessName,
           instagramAccessToken: response.data.vendor.instagramAccessToken,
-          instagramIdPage: response.data.vendor.insta,
+          instagramIdPage: response.data.vendor.instagramIdPage,
           phoneNumber: response.data.vendor.phoneNumber,
           pinned: response.data.vendor.pinned,
           website: response.data.vendor.website,
