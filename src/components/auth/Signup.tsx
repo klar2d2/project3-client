@@ -9,6 +9,7 @@ import { SERVER, SIGNUP } from "../../const";
 import { Checkbox } from "@material-ui/core";
 import Vendors from "./Vendors";
 import { IUser } from "../../react-app-env";
+import axios from 'axios'
 
 interface ISignupProps {
   user: IUser;

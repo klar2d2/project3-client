@@ -9,7 +9,6 @@ import {GET_ONE_ARTIST_POST, GET_FRONTPAGE_POSTS} from "../../const"
 import { IPost } from "../../react-app-env";
 
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -28,10 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
 //   artworks: IPost[];
 //   refreshArtworks();
 // }
-const getOneArtwork = (userId, postId) => {
-  console.log('click', userId, postId)
-  return
-}
+
+// const getOneArtwork = (userId, postId) => {
+//   console.log("click");
+//   return <Redirect to={`/art/${userId}/${postId}`} />;
+// };
 
 const Browse = (props) => {
   const classes = useStyles();
@@ -49,19 +49,13 @@ const Browse = (props) => {
 
   return (
     <div className={classes.root} id="browseContainer">
-      <GridList cellHeight={400} cols={3}>
-      {props.artworks.map((work) => (
-            <GridListTile key={work.id} cols={1} className="tile">
-              <Link to={{
-                pathname: `art/${work.artistId}/${work.id}`,
-                state: {
-                  artistId: work.artistId,
-                  artId: work.id
-                }
-              }}>
-                <img className='img-tile' src={work.media_url} alt={work.id} />
-                </Link>
 
+      <GridList cellHeight={400} cols={3}>i
+        {artworks.map((work: IPost, i) => (
+            <GridListTile key={work.id + "-" + work.userId} cols={1} className="tile">
+              <Link to={`/art/${work.userId}/${work.id}`}>
+                <img src={work.media_url} className="tile-img" alt={work.id}/>
+              </Link>
             </GridListTile>
           ))}
       </GridList>

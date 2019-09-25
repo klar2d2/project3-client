@@ -138,8 +138,10 @@ class App extends Component<{}, IAppState> {
     return (
       <Router>
         <div className="App">
-          <Nav user={this.state.user} logoutUser={this.logoutUser} />
-          <Content user={this.state.user} refreshUser={this.getUser} />
+          <main>
+            <Nav user={this.state.user} logoutUser={this.logoutUser} />
+            <Content user={this.state.user} refreshUser={this.getUser} />
+          </main>
           <Footer />
         </div>
       </Router>
