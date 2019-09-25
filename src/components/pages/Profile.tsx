@@ -42,65 +42,74 @@ class Profile extends Component<IProfileProps, {}> {
   // }
 
   renderVendor() {
-      if (this.props.user.isVendor) {
-        let address;
-        let contact;
-        let pinned;
-        if (this.props.vendorAddress) {
-          address = (
-            <div>
-              <p>Address:</p>
-              <p>
-                {this.props.vendorAddress.streetNumber}
-                {this.props.vendorAddress.street}
-                {this.props.vendorAddress.streetSuffix}
-                <br />
-                {this.props.vendorAddress.state}
-                {this.props.vendorAddress.zipcode},
-                {this.props.vendorAddress.country}
-              </p>
-            </div>
-          );
-        }
-        if (this.props.vendorInfo) {
-          contact = (
-            <div>
-              <p>{this.props.vendorInfo.phoneNumber}</p>
-              <p>{this.props.vendorInfo.website}</p>
-            </div>
-          );
-          if (this.props.vendorInfo.pinned.length > 0) {
-            pinned = (this.props.vendorInfo.pinned);
-            } else {
-              pinned = (<p>No Pinned works yet!</p>);
-            }
-        }
-        return (
+    if (this.props.user.isVendor) {
+      let address;
+      let contact;
+      let pinned;
+      if (this.props.vendorAddress) {
+        address = (
           <div>
-            <h2>Vendor Info</h2>
-            {address}
-            {contact}
-            {pinned}
+            <p>Address:</p>
+            <p>
+              {this.props.vendorAddress.streetNumber}
+              {this.props.vendorAddress.street}
+              {this.props.vendorAddress.streetSuffix}
+              <br />
+              {this.props.vendorAddress.state}
+              {this.props.vendorAddress.zipcode},
+                {this.props.vendorAddress.country}
+            </p>
           </div>
         );
       }
+      if (this.props.vendorInfo) {
+        contact = (
+          <div>
+            <p>{this.props.vendorInfo.phoneNumber}</p>
+            <p>{this.props.vendorInfo.website}</p>
+          </div>
+        );
+        if (this.props.vendorInfo.pinned.length > 0) {
+          pinned = (this.props.vendorInfo.pinned);
+        } else {
+          pinned = (<p>No Pinned works yet!</p>);
+        }
+      }
+      return (
+        <div>
+          <h2>Vendor Info</h2>
+          {address}
+          {contact}
+          {pinned}
+        </div>
+      );
+    }
   }
 
   render() {
-    console.log("USER", this.props.user);
+    let profile;
+    if (this.props.user.isLoggedIn) {
+      profile =
+        <Paper>
+          <h1>My Profile</h1>
+          <br />
+        </Paper>;
+    } else {
+      profile =
+        <Paper>
+          <h1>Log in to see your Profile</h1>
+          <br />
+        </Paper>;
+    }
     return (
       <div className="profile-box">
         <Grid container spacing={3}>
           <Grid item xs={3}>
-            <Paper>
-              <h1>My Profile</h1>
-              <br />
-            </Paper>
+            {profile}
           </Grid>
           <Grid item xs={9}>
             <div>
             </div>
-
           </Grid>
         </Grid>
       </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { GET_ONE_ARTIST_POST, SERVER, ADD_USER_FAVORITE_WORKS } from "../../const";
+import { GET_ONE_ARTIST_POST, SERVER, ADD_USER_FAVORITE_WORKS, DELETE_USER_FAVORITE_WORKS } from "../../const";
 import { IUser } from "../../react-app-env";
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
@@ -9,6 +9,7 @@ interface IPostContainerProps {
   postId: string;
   user: IUser;
   userId: string;
+  refreshUser();
 }
 
 interface IPostContainerState {
@@ -38,7 +39,6 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
   }
 
   componentDidMount() {
-    console.log(this.props.userId);
     axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
     .then((response) => {
       this.setState({
@@ -55,28 +55,48 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
 
   isFavoriteWork(favoriteWorks, postId) {
     if (favoriteWorks) {
-      favoriteWorks.forEach((work) => {
-        if (work.postId === postId) {
+      for (let i = 0; i < favoriteWorks.length; i++) {
+        if (favoriteWorks[i].postId === postId) {
           return true;
         }
-      });
+      }
     }
     return false;
   }
 
   handlePostFavorite = (e) => {
-    let artistId: string;
-    let postId: string;
-    [artistId, postId] = e.currentTarget.id.split("-");
-    axios.post(ADD_USER_FAVORITE_WORKS(this.props.user.id), { artistId, postId })
-    .then()
-    .catch();
+    const ids = e.currentTarget.id.split("-");
+    if (ids[2] === "true") {
+      axios.delete(DELETE_USER_FAVORITE_WORKS(this.props.user.id), {
+        data: {
+          artistId: ids[0],
+          postId: ids[1],
+        },
+      })
+      .then(() => {
+        console.log("DELETE successful")
+        this.props.refreshUser();
+      })
+      .catch();
+    } else if (ids[2] === "false") {
+      axios.post(ADD_USER_FAVORITE_WORKS(this.props.user.id), {
+        artistId: ids[0],
+        postId: ids[1],
+      })
+      .then(() => {
+        console.log("ADD successful")
+        this.props.refreshUser();
+      })
+      .catch();
+    }
+    this.forceUpdate();
   }
 
   render() {
     return(
       <div>
-        <Post id={this.state.id}
+        <Post artistId={this.props.userId}
+              id={this.state.id}
               handlePostFavorite={this.handlePostFavorite}
               isFavorite={this.isFavoriteWork(this.props.user.favoriteWorks, this.state.id)}
               mediaType={this.state.mediaType}

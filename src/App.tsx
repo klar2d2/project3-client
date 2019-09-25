@@ -54,6 +54,7 @@ class App extends Component<{}, IAppState> {
 
   componentDidMount() {
     this.getUser();
+    console.log(this.state.user)
   }
 
   logoutUser = (e) => {
@@ -64,11 +65,14 @@ class App extends Component<{}, IAppState> {
 
   makeUserStateObject = (response: AxiosResponse | undefined) => {
     if (response) {
+      console.log(response.data.user)
       const state: IAppState = {
         user: {
           email: response.data.user.email,
+          favoriteArtists: response.data.user.favoriteArtists,
+          favoriteWorks: response.data.user.favoriteWorks,
           firstname: response.data.user.firstname,
-          id: response.data.user.id,
+          id: response.data.user._id,
           isLoggedIn: true,
           isVendor: response.data.user.isVendor,
           lastname: response.data.userlastname,
@@ -124,7 +128,9 @@ class App extends Component<{}, IAppState> {
         headers: { "Authorization": `Bearer ${token}` },
       })
         .then((response) => {
-          this.setState(this.makeUserStateObject(response));
+          const user = this.makeUserStateObject(response)
+          console.log(user);
+          this.setState(user);
         })
         .catch((err) => {
           console.log("Error with token", err);
