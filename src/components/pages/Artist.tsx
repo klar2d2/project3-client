@@ -4,9 +4,7 @@ import React, { Component } from "react";
 import { GET_USER } from "../../const";
 import { IAddress, IUser, IVendor } from "../../react-app-env";
 import Contact from "../Interactive/Contact";
-// import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
-
 export interface IArtistProps {
   id: string;
 }

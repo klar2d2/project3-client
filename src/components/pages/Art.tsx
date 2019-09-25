@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { GET_ONE_ARTIST_POST, SERVER, ADD_USER_FAVORITE_WORKS, DELETE_USER_FAVORITE_WORKS } from "../../const";
-import { IUser } from "../../react-app-env";
+import { SERVER, GET_ONE_ARTIST_POST } from "../../const";
 import Post from "../Interactive/Post";
 import PostInfo from "../Interactive/PostInfo";
 
 interface IPostContainerProps {
   postId: string;
-  user: IUser;
   userId: string;
+  user: string;
   refreshUser();
 }
 
@@ -39,66 +38,59 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
   }
 
   componentDidMount() {
-    axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
-    .then((response) => {
-      this.setState({
-        id: response.data.id,
-        mediaType: response.data.media_type,
-        mediaUrl: response.data.media_url,
-        timestamp: response.data.timestamp,
+    console.log(this.props.userId);
+    axios.get(this.props.userId)
+    .then((user) => {
+      let isFavorite: boolean;
+      if (user.data.favoriteWorks.indexOf(this.props.postId) >= 0) {
+        isFavorite = true;
+      } else {
+        isFavorite = false;
+      }
+      axios.get(GET_ONE_ARTIST_POST(this.props.userId, this.props.postId))
+      .then((response) => {
+        this.setState({
+          artistInstagram: "",
+          artistName: "",
+          caption: "",
+          id: response.data.id,
+          isFavorite,
+          mediaType: response.data.media_type,
+          mediaUrl: response.data.media_url,
+          timestamp: response.data.timestamp,
+        });
+      })
+      .catch((err) => {
+      console.log(err, "Error getting Post");
       });
-    })
-    .catch((err) => {
-    console.log(err, "Error getting Post");
     });
   }
 
-  isFavoriteWork(favoriteWorks, postId) {
-    if (favoriteWorks) {
-      for (let i = 0; i < favoriteWorks.length; i++) {
-        if (favoriteWorks[i].postId === postId) {
-          return true;
-        }
+  handlePostFavorite(e): void {
+    axios.get(SERVER + "/v1/users/" + this.props.userId)
+    .then((response) => {
+      if (this.state.isFavorite) {
+        response.data.favoriteWorks.push(e.target.id);
+      } else {
+        response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
       }
-    }
-    return false;
-  }
-
-  handlePostFavorite = (e) => {
-    const ids = e.currentTarget.id.split("-");
-    if (ids[2] === "true") {
-      axios.delete(DELETE_USER_FAVORITE_WORKS(this.props.user.id), {
-        data: {
-          artistId: ids[0],
-          postId: ids[1],
-        },
+      axios.put(SERVER + "/v1/users/" + this.props.userId, {
+        favoriteWorks: response.data.favoriteWorks,
       })
-      .then(() => {
-        console.log("DELETE successful")
-        this.props.refreshUser();
+      .then((result) => {
       })
-      .catch();
-    } else if (ids[2] === "false") {
-      axios.post(ADD_USER_FAVORITE_WORKS(this.props.user.id), {
-        artistId: ids[0],
-        postId: ids[1],
-      })
-      .then(() => {
-        console.log("ADD successful")
-        this.props.refreshUser();
-      })
-      .catch();
-    }
-    this.forceUpdate();
+      .catch((err) => {
+        console.log("ERROR updating favorites", err);
+      });
+    });
   }
 
   render() {
     return(
       <div>
-        <Post artistId={this.props.userId}
-              id={this.state.id}
+        <Post id={this.state.id}
               handlePostFavorite={this.handlePostFavorite}
-              isFavorite={this.isFavoriteWork(this.props.user.favoriteWorks, this.state.id)}
+              isFavorite={this.state.isFavorite}
               mediaType={this.state.mediaType}
               mediaUrl={this.state.mediaUrl}
         />

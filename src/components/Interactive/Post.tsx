@@ -7,7 +7,6 @@ import React from "react";
 //import App from "../../App";
 
 interface IPostProps {
-  artistId: string;
   id: string;
   isFavorite: boolean;
   mediaType: string;
@@ -36,7 +35,7 @@ const Post = (props: IPostProps) => {
   return(
     <div id={props.id}>
       {media}
-      <span id={props.artistId + "-" + props.id + "-" + String(props.isFavorite)}
+      <span id={props.id + "-" + props.id + "-" + String(props.isFavorite)}
             onClick={props.handlePostFavorite}>
             {favoriteIcon}
       </span>

@@ -77,8 +77,6 @@ class App extends Component<{}, IAppState> {
           isVendor: response.data.user.isVendor,
           lastname: response.data.userlastname,
           password: response.data.user.password,
-          favoriteWorks: [{postId: response.data.user.favoriteWorks, artistId: response.data.user.favoriteArtists }],
-          favoriteArtists: []
         },
       };
       if (response.data.user.isVendor) {
