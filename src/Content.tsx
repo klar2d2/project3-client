@@ -68,7 +68,7 @@ class Content extends Component<IContentProps, IContentState> {
                    refreshUser={this.props.refreshUser} />
         } />
         <Route path="/browse" render={() =>
-          <Browse />
+          <Browse setArtworks={this.getArtworks}/>
         } />
         <Route exact path="/art/:artistId/:postId" render={(path) =>
           <Art userId={path.match.params.artistId}

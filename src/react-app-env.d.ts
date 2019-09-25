@@ -79,6 +79,8 @@ export interface IArtistProps {
   id: string;
   user?: (string | null);
   refreshUser();
+  favoriteWorks: [{postId: string, artistId: string }];
+  favoriteArtists: [];
 }
 
 export interface IArtistState {

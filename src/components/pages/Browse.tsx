@@ -2,10 +2,12 @@ import axios from "axios";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import {GET_ONE_ARTIST_POST, GET_FRONTPAGE_POSTS} from "../../const"
 import { IPost } from "../../react-app-env";
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,11 +50,11 @@ const Browse = (props) => {
 
   return (
     <div className={classes.root} id="browseContainer">
-      <GridList cellHeight={160} cols={3}>
-      {artworks.map((work: IPost) => (
+      <GridList cellHeight={400} cols={3}>i
+        {artworks.map((work: IPost, i) => (
             <GridListTile key={work.id + "-" + work.userId} cols={1} className="tile">
               <Link to={`/art/${work.userId}/${work.id}`}>
-                <img src={work.media_url} alt={work.id}/>
+                <img src={work.media_url} className="tile-img" alt={work.id}/>
               </Link>
             </GridListTile>
           ))}

@@ -29,6 +29,8 @@ class App extends Component<{}, IAppState> {
         isVendor: false,
         lastname: "",
         password: "",
+        favoriteWorks: [{postId: '', artistId: '' }],
+        favoriteArtists: []
       },
       userAddress: {
         city: "",
@@ -75,6 +77,8 @@ class App extends Component<{}, IAppState> {
           isVendor: response.data.user.isVendor,
           lastname: response.data.userlastname,
           password: response.data.user.password,
+          favoriteWorks: [{postId: response.data.user.favoriteWorks, artistId: response.data.user.favoriteArtists }],
+          favoriteArtists: []
         },
       };
       if (response.data.user.isVendor) {
@@ -107,6 +111,8 @@ class App extends Component<{}, IAppState> {
           isVendor: false,
           lastname: "",
           password: "",
+          favoriteWorks: [{postId: '', artistId: '' }],
+          favoriteArtists: []
         },
       };
       return state;
@@ -138,8 +144,10 @@ class App extends Component<{}, IAppState> {
     return (
       <Router>
         <div className="App">
-          <Nav user={this.state.user} logoutUser={this.logoutUser} />
-          <Content user={this.state.user} refreshUser={this.getUser} />
+          <main>
+            <Nav user={this.state.user} logoutUser={this.logoutUser} />
+            <Content user={this.state.user} refreshUser={this.getUser} />
+          </main>
           <Footer />
         </div>
       </Router>
