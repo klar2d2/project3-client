@@ -35,7 +35,8 @@ const Post = (props: IPostProps) => {
   return(
     <div id={props.id}>
       {media}
-      <span id={props.id + "-" + props.id + "-" + String(props.isFavorite)}
+      <br/>
+      <span id={"-" + props.id + "-" + String(props.isFavorite)}
             onClick={props.handlePostFavorite}>
             {favoriteIcon}
       </span>

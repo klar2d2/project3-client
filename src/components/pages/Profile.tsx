@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { ContentInt, IAddress, IUser, IVendor } from "../../react-app-env";
 import Favorites from "./Favorites";
 
+
 interface IProfileProps {
   user: IUser;
   vendorInfo?: IVendor;
@@ -23,29 +24,18 @@ class Profile extends Component<IProfileProps, {}> {
       },
     }),
   );
+  componentDidMount() {
+    console.log(this.props.user)
+  }
 
-  // renderFavorites(): JSX.Element {
-  //   console.log("FAVE:", this.state.current.favorites);
-  //   if (this.state.current.favorites) {
-  //       return (
-  //         <div>
-  //           <p>Favorites</p>
-  //           {this.state.current.favorites.map((favorite: string, i: number) => {
-  //             return <img key={i} src={favorite} alt='' />;
-  //             })
-  //           }
-  //         </div>
-  //       );
-  //     } else {
-  //       return <div><p>No Favorites!</p></div>;
-  //     }
-  // }
 
-  renderVendor() {
+
+
+  render() {
+    let address;
+    let contact;
+    let pinned;
     if (this.props.user.isVendor) {
-      let address;
-      let contact;
-      let pinned;
       if (this.props.vendorAddress) {
         address = (
           <div>
@@ -57,7 +47,7 @@ class Profile extends Component<IProfileProps, {}> {
               <br />
               {this.props.vendorAddress.state}
               {this.props.vendorAddress.zipcode},
-                {this.props.vendorAddress.country}
+              {this.props.vendorAddress.country}
             </p>
           </div>
         );
@@ -75,24 +65,18 @@ class Profile extends Component<IProfileProps, {}> {
           pinned = (<p>No Pinned works yet!</p>);
         }
       }
-      return (
-        <div>
-          <h2>Vendor Info</h2>
-          {address}
-          {contact}
-          {pinned}
-        </div>
-      );
     }
-  }
-
-  render() {
     let profile;
     if (this.props.user.isLoggedIn) {
       profile =
         <Paper>
           <h1>My Profile</h1>
           <br />
+          <p>{this.props.user.firstname}</p>
+          <p>{this.props.user.email}</p>
+          <h1>Vendor Info</h1>
+            {address}
+            {contact}
         </Paper>;
     } else {
       profile =
@@ -109,6 +93,8 @@ class Profile extends Component<IProfileProps, {}> {
           </Grid>
           <Grid item xs={9}>
             <div>
+            {pinned}
+            <Favorites user={this.props.user} />
             </div>
           </Grid>
         </Grid>

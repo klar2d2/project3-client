@@ -1,7 +1,9 @@
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {SERVER} from '../../const'
+import axios from 'axios'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,7 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
+
+
 const Favorites = (props) => {
+  const [artworks, setFavorites] = useState([]);
   let tiles;
   const classes = useStyles();
   if (props.savedPics) {
@@ -27,6 +33,18 @@ const Favorites = (props) => {
         </GridListTile>);
       });
     }
+
+  useEffect(() => {
+    console.log(props.user)
+    axios.get(SERVER + `/v1/users/${props.user}/favoriteWorks`)
+    .then((response) => {
+        console.log(response);
+    })
+    .catch((err) => {
+      console.log("Err while grabbing artworks", err);
+    });
+  }, []);
+
 
   return (
       <div className={classes.root} id="browseContainer">

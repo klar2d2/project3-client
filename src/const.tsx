@@ -2,7 +2,7 @@ export const SERVER = "https://secret-dawn-38131.herokuapp.com";
 
 export const GET__ALL_USERS = SERVER + "/v1/users/users";
 
-export const GET_USER = (artistId: string): string => { 
+export const GET_USER = (artistId: string): string => {
   return SERVER + `/v1/users/${artistId}`;
 }
 

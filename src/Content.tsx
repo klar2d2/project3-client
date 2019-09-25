@@ -34,6 +34,7 @@ class Content extends Component<IContentProps, IContentState> {
 
   componentDidMount() {
     this.getArtworks();
+    this.props.refreshUser()
   }
 
   getArtworks = () => {
@@ -72,8 +73,8 @@ class Content extends Component<IContentProps, IContentState> {
         } />
         <Route exact path="/art/:artistId/:postId" render={(path) =>
           <Art userId={path.match.params.artistId}
+               refreshUser={this.props.refreshUser()}
                user={user}
-               refreshUser={this.props.refreshUser}
                postId={path.match.params.postId} />
         } />
         <Route path="/artist/:artistId" render={(path) =>
